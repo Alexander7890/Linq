@@ -18,26 +18,12 @@ namespace Linq
         public Form1()
         {
             InitializeComponent();
-            products = new List<Product>
-        {
-            new Product(1, "Laptop", "Electronics", 999.99m, 10),
-            new Product(2, "Smartphone", "Electronics", 499.99m, 15),
-            new Product(3, "Tablet", "Electronics", 299.99m, 20),
-            new Product(4, "Headphones", "Accessories", 199.99m, 30),
-            new Product(5, "Charger", "Accessories", 49.99m, 50),
-            new Product(6, "Shoes", "Apparel", 79.99m, 40),
-            new Product(7, "T-shirt", "Apparel", 19.99m, 100)
-        };
-            SaveData(); // Save initial data to file
+            products = new List<Product>();
             LoadData();
-            DisplayProducts(products);
             PopulateCategoryComboBox();
             PopulateSortByComboBox();
         }
-        private void Form1_Load(object sender, EventArgs e)
-        {
 
-        }
         private void LoadData()
         {
             if (File.Exists("products.txt"))
@@ -119,7 +105,7 @@ namespace Linq
             DisplayProducts(searchedProducts);
         }
 
-        private void buttonFilter_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // Фільтрує продукти за категорією
         {
             string category = comboBox1.SelectedItem?.ToString();
             if (category != null)
@@ -128,7 +114,7 @@ namespace Linq
             }
         }
 
-        private void buttonSort_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) // Сортує продукти за вибраним параметром
         {
             string sortBy = comboBox2.SelectedItem?.ToString();
             if (sortBy != null)
@@ -137,10 +123,23 @@ namespace Linq
             }
         }
 
-        private void buttonSearch_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e) // Шукає продукти за введеним текстом
         {
             string searchTerm = textBox1.Text;
             SearchProducts(searchTerm);
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            SaveData();
+            MessageBox.Show("Data saved successfully!");
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            var newProduct = new Product(8, "New Product", "New Category", 123.45m, 5);
+            products.Add(newProduct);
+            DisplayProducts(products);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -148,28 +147,19 @@ namespace Linq
             SaveData();
         }
 
-    private void button1_Click(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            string category = comboBox1.SelectedItem?.ToString();
-            if (category != null)
-            {
-                FilterProducts(category);
-            }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e)
         {
-            string sortBy = comboBox2.SelectedItem?.ToString();
-            if (sortBy != null)
-            {
-                SortProducts(sortBy);
-            }
+            LoadData();
+            DisplayProducts(products);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            string searchTerm = textBox1.Text;
-            SearchProducts(searchTerm);
+
         }
     }
 }
